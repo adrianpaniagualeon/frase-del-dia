@@ -16,13 +16,10 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
-r = requests.get("https://frasedeldia.azurewebsites.net/api/phrase")
-open('frase.json', 'w').write(r.text)
-f = open('frase.json')
-json_file = json.load(f)
-json_str = json.dumps(json_file)
-resp2 = json.loads(json_str)
-frase = resp2 ["phrase"]
-autor = resp2 ["author"]
-tweet = '"'+frase+'"-'+autor
+r = requests.get("https://proverbia.net/frase-del-dia")
+block = r.text.split('<blockquote class="bsquote">')[1].split("</em>")[0]
+frase = block.split("<p>")[1].split("</p>")[0]
+autor = block.split('<a title="Frases de ')[1].split('"')[0]
+
+tweet = '"'+frase+'"- '+autor
 api.update_status(tweet)
