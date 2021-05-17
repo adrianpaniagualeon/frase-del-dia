@@ -20,6 +20,7 @@ r = requests.get("https://proverbia.net/frase-del-dia")
 block = r.text.split('<blockquote class="bsquote">')[1].split("</em>")[0]
 frase = block.split("<p>")[1].split("</p>")[0]
 frase = frase.replace("<br>","")
+frase = frase.replace("<br />","")
 autor = block.split('<a title="Frases de ')[1].split('"')[0]
 
 tweet = '"'+frase+'"- '+autor
